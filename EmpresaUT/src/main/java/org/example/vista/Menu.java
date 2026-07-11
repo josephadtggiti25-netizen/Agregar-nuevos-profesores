@@ -40,7 +40,7 @@ public class Menu {
             System.out.println("No hay profesores registrados.");
         } else {
             for (Profesor p : listaProfesores) {
-                System.out.println(p); // Esto usa el toString() de tu clase Profesor
+                System.out.println(p); 
                 System.out.println("--------------------");
             }
         }
