@@ -40,10 +40,24 @@ public class Menu {
             System.out.println("No hay profesores registrados.");
         } else {
             for (Profesor p : listaProfesores) {
-                System.out.println(p); 
+                System.out.println(p);
                 System.out.println("--------------------");
             }
         }
+    }
+    private static void actualizarProfesor() throws IOException {
+        System.out.print("Numero de expediente: ");
+        profesor.setNumExpediente(Integer.parseInt(leer.readLine()));
+        System.out.print("Nombre: ");
+        profesor.setNombre(leer.readLine());
+        System.out.print("Curp: ");
+        profesor.setCurp(leer.readLine());
+        System.out.print("Puesto: ");
+        profesor.setPuesto(leer.readLine());
+        System.out.print("Sueldo: ");
+        profesor.setSueldo(Double.parseDouble(leer.readLine()));
+        profesorDAO.actualizar(profesor);
+
     }
 
     private static void inscribir() throws IOException{
@@ -84,15 +98,16 @@ public class Menu {
     private static void buscar(){}
     public static void menu() throws IOException {
         int salir=0;
-        while (salir!=8){
+        while (salir!=9){
             System.out.println("1. Inscribir alumno");
             System.out.println("2. Mostrar alumnos");
-            System.out.println("3. Actualzar un alumno");
+            System.out.println("3. Actualizar un alumno");
             System.out.println("4. Dar de baja un alumno");
             System.out.println("5. Buscar alumno");
             System.out.println("6. Registrar profesor");
             System.out.println("7. Mostrar profesores");
-            System.out.println("8. Salir");
+            System.out.println("8. Actualizar un profesor");
+            System.out.println("9. Salir");
             System.out.println("Elije una opcion: ");
             salir=Integer.parseInt(leer.readLine());
             switch ( salir){
@@ -101,9 +116,10 @@ public class Menu {
                 case 3:actualizar();break;
                 case 4:darBaja();break;
                 case 5:buscar();break;
-                case 6: registrarProfesor(); break;
-                case 7: mostrarProfesores(); break;
-                case 8:
+                case 6:registrarProfesor(); break;
+                case 7:mostrarProfesores(); break;
+                case 8:actualizarProfesor();break;
+                case 9:
                     System.out.println("Haz salido de la aplicacion");
                     break;
                 default:

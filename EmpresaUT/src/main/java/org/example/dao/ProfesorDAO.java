@@ -1,6 +1,7 @@
 package org.example.dao;
 
 import org.example.Conexion;
+import org.example.modelo.Alumno;
 import org.example.modelo.Profesor;
 
 import java.sql.Connection;
@@ -56,5 +57,29 @@ public class ProfesorDAO {
             System.out.println("Error al extraer a los profesores: " + err.getMessage());
         }
         return profesores;
+    }
+    public boolean actualizar(Profesor profesor){
+        boolean actualizado=false;
+        String sql="UPDATE profesores SET nombre= ?,curp= ?, puesto= ?, sueldo= ? WHERE numExpediente= ?";
+        try (Connection conexion= Conexion.conectar();
+             PreparedStatement stm = conexion.prepareStatement(sql);){
+            stm.setString(1,profesor.getNombre());
+            stm.setString(2,profesor.getCurp());
+            stm.setString(3,profesor.getPuesto());
+            stm.setDouble(4,profesor.getSueldo());
+            stm.setInt(5,profesor.getNumExpediente());
+            int refiatrosafectados=stm.executeUpdate();
+            if(refiatrosafectados>0){
+                System.out.println("Profesor actualizado correctamente");
+                actualizado=true;
+            }
+            else {
+                System.out.println("El numero de expediente no se encontro");
+            }
+        }
+        catch (SQLException err){
+            System.out.println("Error al actulizar al profesor");
+        }
+        return actualizado;
     }
 }
