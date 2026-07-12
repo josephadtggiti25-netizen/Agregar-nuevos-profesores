@@ -82,4 +82,25 @@ public class ProfesorDAO {
         }
         return actualizado;
     }
+    public boolean darBajaProfesor(int numExpediente) {
+        boolean eliminado = false;
+        String sql = "DELETE FROM profesores WHERE numExpediente = ?";
+
+        try (Connection conexion = Conexion.conectar();
+             PreparedStatement stm = conexion.prepareStatement(sql)) {
+
+            stm.setInt(1, numExpediente);
+
+            int filasAfectadas = stm.executeUpdate();
+            if (filasAfectadas > 0) {
+                System.out.println("Profesor dado de baja correctamente.");
+                eliminado = true;
+            } else {
+                System.out.println("No se encontro ningun profesor con ese numero de expediente.");
+            }
+        } catch (SQLException err) {
+            System.out.println("Error al dar de baja al profesor: " + err.getMessage());
+        }
+        return eliminado;
+    }
 }

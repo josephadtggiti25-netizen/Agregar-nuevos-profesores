@@ -74,4 +74,25 @@ public class AlumnoDAO {
         }
         return actualizado;
     }
+    public boolean darBajaAlumno(int numExpediente) {
+        boolean eliminado = false;
+        String sql = "DELETE FROM alumnos WHERE numExpediente = ?";
+
+        try (Connection conexion = Conexion.conectar();
+             PreparedStatement stm = conexion.prepareStatement(sql)) {
+
+            stm.setInt(1, numExpediente);
+
+            int filasAfectadas = stm.executeUpdate();
+            if (filasAfectadas > 0) {
+                System.out.println("Alumno dado de baja correctamente.");
+                eliminado = true;
+            } else {
+                System.out.println("No se encontro ningun alumno con ese numero de expediente.");
+            }
+        } catch (SQLException err) {
+            System.out.println("Error al dar de baja al alumno: " + err.getMessage());
+        }
+        return eliminado;
+    }
 }

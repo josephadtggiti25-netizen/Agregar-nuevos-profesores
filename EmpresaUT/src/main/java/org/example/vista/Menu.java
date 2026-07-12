@@ -59,6 +59,11 @@ public class Menu {
         profesorDAO.actualizar(profesor);
 
     }
+    private static void darBajaProfesor() throws IOException {
+        System.out.print("Introduce el numero de expediente del profesor a dar de baja: ");
+        int expediente = Integer.parseInt(leer.readLine());
+        profesorDAO.darBajaProfesor(expediente);
+    }
 
     private static void inscribir() throws IOException{
         System.out.print("Numero de expediente: ");
@@ -94,11 +99,15 @@ public class Menu {
         alumno.setPromedio(Double.parseDouble(leer.readLine()));
         alumnoDAO.actualizar(alumno);
     }
-    private static void darBaja(){}
+    private static void darBaja() throws IOException{
+        System.out.print("Introduce el número de expediente del alumno a dar de baja: ");
+        int expediente = Integer.parseInt(leer.readLine());
+        alumnoDAO.darBajaAlumno(expediente);
+    }
     private static void buscar(){}
     public static void menu() throws IOException {
         int salir=0;
-        while (salir!=9){
+        while (salir!=10){
             System.out.println("1. Inscribir alumno");
             System.out.println("2. Mostrar alumnos");
             System.out.println("3. Actualizar un alumno");
@@ -107,7 +116,8 @@ public class Menu {
             System.out.println("6. Registrar profesor");
             System.out.println("7. Mostrar profesores");
             System.out.println("8. Actualizar un profesor");
-            System.out.println("9. Salir");
+            System.out.println("9. Dar de baja un profesor");
+            System.out.println("10. Salir");
             System.out.println("Elije una opcion: ");
             salir=Integer.parseInt(leer.readLine());
             switch ( salir){
@@ -119,7 +129,8 @@ public class Menu {
                 case 6:registrarProfesor(); break;
                 case 7:mostrarProfesores(); break;
                 case 8:actualizarProfesor();break;
-                case 9:
+                case 9:darBajaProfesor();break;
+                case 10:
                     System.out.println("Haz salido de la aplicacion");
                     break;
                 default:
