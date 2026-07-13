@@ -64,6 +64,17 @@ public class Menu {
         int expediente = Integer.parseInt(leer.readLine());
         profesorDAO.darBajaProfesor(expediente);
     }
+    private static void buscarProfesor() throws IOException {
+        System.out.print("Introduce el numero de expediente del profesor a buscar: ");
+        int expediente = Integer.parseInt(leer.readLine());
+        Profesor profesor = profesorDAO.buscarProfesor(expediente);
+
+        if (profesor != null) {
+            System.out.println("Profesor encontrado: " + profesor);
+        } else {
+            System.out.println("No se encontro ningun profesor con ese expediente.");
+        }
+    }
 
     private static void inscribir() throws IOException{
         System.out.print("Numero de expediente: ");
@@ -100,14 +111,24 @@ public class Menu {
         alumnoDAO.actualizar(alumno);
     }
     private static void darBaja() throws IOException{
-        System.out.print("Introduce el número de expediente del alumno a dar de baja: ");
+        System.out.print("Introduce el numero de expediente del alumno a dar de baja: ");
         int expediente = Integer.parseInt(leer.readLine());
         alumnoDAO.darBajaAlumno(expediente);
     }
-    private static void buscar(){}
+    private static void buscarAlumno() throws IOException{
+        System.out.print("Introduce el numero de expediente del alumno a buscar: ");
+        int expediente = Integer.parseInt(leer.readLine());
+        Alumno alumno = alumnoDAO.buscarAlumno(expediente);
+
+        if (alumno != null) {
+            System.out.println("Alumno encontrado: " + alumno);
+        } else {
+            System.out.println("No se encontro ningun alumno con ese expediente.");
+        }
+    }
     public static void menu() throws IOException {
         int salir=0;
-        while (salir!=10){
+        while (salir!=11){
             System.out.println("1. Inscribir alumno");
             System.out.println("2. Mostrar alumnos");
             System.out.println("3. Actualizar un alumno");
@@ -117,7 +138,8 @@ public class Menu {
             System.out.println("7. Mostrar profesores");
             System.out.println("8. Actualizar un profesor");
             System.out.println("9. Dar de baja un profesor");
-            System.out.println("10. Salir");
+            System.out.println("10. Buscar profesor");
+            System.out.println("11. Salir");
             System.out.println("Elije una opcion: ");
             salir=Integer.parseInt(leer.readLine());
             switch ( salir){
@@ -125,12 +147,13 @@ public class Menu {
                 case 2:mostrar();break;
                 case 3:actualizar();break;
                 case 4:darBaja();break;
-                case 5:buscar();break;
+                case 5:buscarAlumno();break;
                 case 6:registrarProfesor(); break;
                 case 7:mostrarProfesores(); break;
                 case 8:actualizarProfesor();break;
                 case 9:darBajaProfesor();break;
-                case 10:
+                case 10:buscarProfesor();break;
+                case 11:
                     System.out.println("Haz salido de la aplicacion");
                     break;
                 default:

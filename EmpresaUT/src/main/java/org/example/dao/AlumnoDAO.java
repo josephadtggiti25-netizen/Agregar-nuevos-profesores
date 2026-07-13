@@ -95,4 +95,27 @@ public class AlumnoDAO {
         }
         return eliminado;
     }
+    public Alumno buscarAlumno(int numExpediente) {
+        Alumno alumno = null;
+        String sql = "SELECT * FROM alumnos WHERE numExpediente = ?";
+
+        try (Connection conexion = Conexion.conectar();
+             PreparedStatement stm = conexion.prepareStatement(sql)) {
+
+            stm.setInt(1, numExpediente);
+            ResultSet rs = stm.executeQuery();
+
+            if (rs.next()) {
+                alumno = new Alumno();
+                alumno.setNumExpediente(rs.getInt("numExpediente"));
+                alumno.setNombre(rs.getString("nombre"));
+                alumno.setCurp(rs.getString("curp"));
+                alumno.setGrupo(rs.getString("grupo"));
+                alumno.setPromedio(rs.getDouble("promedio"));
+            }
+        } catch (SQLException err) {
+            System.out.println("Error al buscar alumno: " + err.getMessage());
+        }
+        return alumno;
+    }
 }
