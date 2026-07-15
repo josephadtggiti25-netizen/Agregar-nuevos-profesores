@@ -1,6 +1,9 @@
 package org.example.modelo;
 
-public class Profesor extends PersonaUT {
+import org.example.Ensenador;
+import org.example.Evaluador;
+
+public class Profesor extends PersonaUT implements Ensenador, Evaluador {
     private int numExpediente;
     private String puesto;
     private double sueldo;
@@ -49,10 +52,26 @@ public class Profesor extends PersonaUT {
         }
     }
     @Override
+    public  String mostrarTipoPersona(){
+        return "-----PROFESOR-----";
+    }
+
+    @Override
     public String toString() {
-        return "Numero de expediente: " + getNumExpediente() + "\n" +
+        return mostrarTipoPersona()+"\n"+
+                "Numero de expediente: " + getNumExpediente() + "\n" +
                 super.toString() +
                 "Puesto: " + getPuesto() + "\n" +
-                "Sueldo: " + getSueldo() + "\n";
+                "Sueldo: " + getSueldo() + "\n"+
+                "-------------------------------------------\n";
+    }
+    @Override
+    public void ensenar() {
+        System.out.println("El profesor " + this.getNombre() + " está impartiendo su clase.");
+    }
+    @Override
+    public void evaluar(Alumno alumno, double calificacion) {
+        System.out.println("El profesor " + this.getNombre() + " está evaluando al alumno " + alumno.getNombre());
+        alumno.recibirEvaluacion(calificacion);
     }
 }

@@ -3,6 +3,7 @@ package org.example.vista;
 import org.example.dao.AlumnoDAO;
 import org.example.dao.ProfesorDAO;
 import org.example.modelo.Alumno;
+import org.example.modelo.PersonaUT;
 import org.example.modelo.Profesor;
 
 import java.io.BufferedReader;
@@ -16,6 +17,15 @@ public class Menu {
     static Alumno alumno=new Alumno();
     static ProfesorDAO profesorDAO = new ProfesorDAO();
     static Profesor profesor = new Profesor();
+
+    private static void mostrarComunidadUniversitaria(){
+        ArrayList<PersonaUT>comunidadUniversitaria=new ArrayList<>();
+        comunidadUniversitaria.addAll(AlumnoDAO.extraerAlumnos());
+        comunidadUniversitaria.addAll(ProfesorDAO.extraerProfesores());
+        for (PersonaUT personaUT:comunidadUniversitaria){
+            System.out.println(personaUT);
+        }
+    }
 
     private static void registrarProfesor() throws IOException {
         System.out.print("Numero de expediente: ");
@@ -123,12 +133,29 @@ public class Menu {
         if (alumno != null) {
             System.out.println("Alumno encontrado: " + alumno);
         } else {
-            System.out.println("No se encontro ningun alumno con ese expediente.");
+            System.out.println("No se encontro ese expediente.");
+        }
+    }
+    private static void evaluarAlumno() throws IOException {
+        System.out.print("Introduce el numero de expediente del profesor: ");
+        int expProfesor = Integer.parseInt(leer.readLine());
+
+        System.out.print("Introduce el expediente del alumno a evaluar: ");
+        int expAlumno = Integer.parseInt(leer.readLine());
+
+        Profesor profesor = profesorDAO.buscarProfesor(expProfesor);
+        Alumno alumno = alumnoDAO.buscarAlumno(expAlumno);
+        if (profesor != null && alumno != null) {
+            System.out.print("Introduce la calificacion: ");
+            double calificacion = Double.parseDouble(leer.readLine());
+            profesor.evaluar(alumno, calificacion);
+        } else {
+            System.out.println("Error, no se encontro al profesor o al alumno.");
         }
     }
     public static void menu() throws IOException {
         int salir=0;
-        while (salir!=11){
+        while (salir!=12){
             System.out.println("1. Inscribir alumno");
             System.out.println("2. Mostrar alumnos");
             System.out.println("3. Actualizar un alumno");
@@ -139,7 +166,9 @@ public class Menu {
             System.out.println("8. Actualizar un profesor");
             System.out.println("9. Dar de baja un profesor");
             System.out.println("10. Buscar profesor");
-            System.out.println("11. Salir");
+            System.out.println("11. Mostrar comunidad");
+            System.out.println("12. Evaluar alumno");
+            System.out.println("13. Salir");
             System.out.println("Elije una opcion: ");
             salir=Integer.parseInt(leer.readLine());
             switch ( salir){
@@ -153,7 +182,9 @@ public class Menu {
                 case 8:actualizarProfesor();break;
                 case 9:darBajaProfesor();break;
                 case 10:buscarProfesor();break;
-                case 11:
+                case 11:mostrarComunidadUniversitaria();break;
+                case 12:evaluarAlumno(); break;
+                case 13:
                     System.out.println("Haz salido de la aplicacion");
                     break;
                 default:

@@ -35,7 +35,7 @@ public class ProfesorDAO {
         }
         return inscrito;
     }
-    public ArrayList<Profesor> extraerProfesores() {
+    public static ArrayList<Profesor> extraerProfesores() {
         ArrayList<Profesor> profesores = new ArrayList<Profesor>();
         String sql = "SELECT * FROM profesores";
 

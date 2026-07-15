@@ -1,6 +1,9 @@
 package org.example.modelo;
 
-public class Alumno extends PersonaUT {
+import org.example.Ensenable;
+import org.example.Evaluable;
+
+public class Alumno extends PersonaUT implements Ensenable, Evaluable {
     private int numExpediente;
     private String grupo;
     private double promedio;
@@ -52,10 +55,24 @@ public class Alumno extends PersonaUT {
         }
     }
     @Override
+    public  String mostrarTipoPersona(){
+        return "-----ALUMNO-----";
+    }
+    @Override
     public String toString(){
-        return "Numero de expediente: "+getNumExpediente()+"\n"+
+        return  mostrarTipoPersona()+"\n"+
+                "Numero de expediente: "+getNumExpediente()+"\n"+
                 super.toString()+
                 "Grupo: "+getGrupo()+"\n"+
-                "Promedio: "+getPromedio()+"\n";
+                "Promedio: "+getPromedio()+"\n"+
+                "-------------------------------------------\n";
+    }
+    @Override
+    public void aprender() {
+        System.out.println("El alumno " + this.getNombre() + " esta aprendiendo.");
+    }
+    @Override
+    public void recibirEvaluacion(double calificacion) {
+        System.out.println("El alumno " + this.getNombre() + " recibio una calificacion de: " + calificacion);
     }
 }

@@ -1,11 +1,10 @@
 package org.example.modelo;
 
-public class PersonaUT {
+public abstract class PersonaUT {
     private String nombre;
     private String curp;
 
     public PersonaUT() {}
-
     public PersonaUT(String nombre, String curp) {
         setNombre(nombre);
         setCurp(curp);
@@ -38,6 +37,8 @@ public class PersonaUT {
         }
 
     }
+    public abstract String mostrarTipoPersona();
+
     @Override
     public String toString(){
         return "Nombre: "+getNombre()+"\n"+

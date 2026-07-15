@@ -29,7 +29,7 @@ public class AlumnoDAO {
         }
         return inscrito;
     }
-    public ArrayList<Alumno>extraerAlumnos(){
+    public static ArrayList<Alumno>extraerAlumnos(){
         ArrayList<Alumno> alumnos=new ArrayList<Alumno>();
 
         String sql="SELECT * FROM alumnos";
